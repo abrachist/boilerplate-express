@@ -6,6 +6,7 @@ var path = __dirname + "/views/index.html";
 var public = __dirname + "/public";
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
   
 app.use(function(req, res, next){
   console.log(req.method+" "+req.path+" - "+req.ip);
@@ -19,14 +20,14 @@ app.get('/', (req, res) => {
 });
 
 app.get('/:word/echo', function(req, res) {
-    const { word } = req.params;
+    var { word } = req.params;
     res.json({
       echo: word
     });
 });
 
-app.get("/name", function(req, res) {
-  let { first: firstname, last: lastname } = req.query;
+app.post("/name", function(req, res) {
+  var { first: firstname, last: lastname } = req.body;
   res.json({
     name: `${firstname} ${lastname}`
   });
