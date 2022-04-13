@@ -3,7 +3,12 @@ var app = express();
 var path = __dirname + "/views/index.html";
 var public = __dirname + "/public";
 
-app.use("/public",express.static(public));
+app.use(function(req, res, next){
+  console.log(req.method+" "+req.path+" - "+req.ip);
+  next();
+});
+
+app.use("/public",express.static(public)); 
 
 app.get('/', (req, res) => {
   res.sendFile(path);
