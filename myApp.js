@@ -14,6 +14,13 @@ app.get('/', (req, res) => {
   res.sendFile(path);
 });
 
+app.get('/:word/echo', function(req, res) {
+    const { word } = req.params;
+    res.json({
+      echo: word
+    });
+});
+
 app.get('/json', (req, res) => {
   if (process.env['MESSAGE_STYLE'] === 'uppercase'){
     res.json({
@@ -40,6 +47,7 @@ app.get('/now', function(req, res, next) {
       });
     }
 });
+
 
 
 
