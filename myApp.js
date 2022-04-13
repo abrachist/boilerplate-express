@@ -24,7 +24,21 @@ app.get('/json', (req, res) => {
       "message": "Hello json".toLocaleLowerCase()
     });
   }
-  
+});
+
+app.get('/now', function(req, res, next) {
+   req.time = new Date().toString(); 
+   next();
+}, function(req, res) {
+   if (process.env['MESSAGE_STYLE'] === 'uppercase'){
+      res.json({
+        "time": req.time.toLocaleUpperCase()
+      });
+    } else {
+      res.json({
+        "time": req.time.toLocaleLowerCase()
+      });
+    }
 });
 
 
