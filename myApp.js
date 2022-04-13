@@ -1,8 +1,12 @@
 var express = require('express');
+var bodyParser = require('body-parser');
+
 var app = express();
 var path = __dirname + "/views/index.html";
 var public = __dirname + "/public";
 
+app.use(bodyParser.urlencoded({ extended: false }));
+  
 app.use(function(req, res, next){
   console.log(req.method+" "+req.path+" - "+req.ip);
   next();
@@ -19,6 +23,13 @@ app.get('/:word/echo', function(req, res) {
     res.json({
       echo: word
     });
+});
+
+app.get("/name", function(req, res) {
+  let { first: firstname, last: lastname } = req.query;
+  res.json({
+    name: `${firstname} ${lastname}`
+  });
 });
 
 app.get('/json', (req, res) => {
